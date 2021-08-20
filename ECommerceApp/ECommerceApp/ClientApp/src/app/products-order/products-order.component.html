@@ -1,0 +1,124 @@
+<header>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="/ProductList" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        <strong>Welcome, {{ userName }}</strong>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main role="main">
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+
+        <!--<div *ngFor="let item of products; let i = index" class="col-md-4">-->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Category</th>
+              <th scope="col">Name</th>
+              <th scope="col">Unit Price</th>
+              <th scope="col">Total Price</th>
+              <th scope="col" class="QuantityLabel">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of selectedProducts; let i = index">
+              <th scope="row">{{i}}</th>
+              <td>{{ item.category }}</td>
+              <td>{{ item.name }} </td>
+              <td>{{ item.price }} </td>
+              <td>{{ item.totalPrice }}</td>
+              <td>
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button type="button" (click)="SubstQuantity(item)" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+                      <span class="fas fa-minus"></span>
+                    </button>
+                  </span>
+                  <input type="text" name="quant[1]" class="quantityInput input-number" (change)="CalculateData(item,$event)" value="{{item.quantity}}" min="1">
+                  <span class="input-group-btn">
+                    <button type="button" (click)="addQuantity(item)" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                      <span class="fas fa-plus"></span>
+                    </button>
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <button type="button" class="btn btn-success  mr-4" data-toggle="modal" data-target=".bd-example-modal-lg">Submit</button>
+        <button type="button" class="btn btn-danger" (click)="goBack()">Return shopping</button>
+
+        <div class="modal  bd-example-modal-lg" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Contact Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form (ngSubmit)="Submitorder(OrderModel)">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Address</label>
+                    <input type="text" class="form-control" id="adress" aria-describedby="adress" name="address" [(ngModel)]="OrderModel.address" required placeholder="Enter your address">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="OrderModel.email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon">Tel : </span>
+                    <form #f="ngForm" [formGroup]="phoneForm">
+                      <div class="mb-2">
+                        <ngx-intl-tel-input [cssClass]="'custom'"
+                                            [preferredCountries]="preferredCountries"
+                                            [enableAutoCountrySelect]="false"
+                                            [enablePlaceholder]="true"
+                                            [searchCountryFlag]="true"
+                                            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                            [selectFirstCountry]="false"
+                                            [selectedCountryISO]="CountryISO.Egypt"
+                                            [maxLength]="15"
+                                            [phoneValidation]="true"
+                                            [separateDialCode]="separateDialCode"
+                                            name="phone" [(ngModel)]="OrderModel.telephone" formControlName="phone">
+                        </ngx-intl-tel-input>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="javascript:void(0)" (click)="disconnect()"> Disconnect </a>
+    </p>
+    <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>
+    <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>
+  </div>
+</footer>
+<svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg>
