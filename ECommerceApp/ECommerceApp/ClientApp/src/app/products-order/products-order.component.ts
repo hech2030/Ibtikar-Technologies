@@ -5,7 +5,6 @@ import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 import { ProductService } from '../Services/product.service';
 import { OrderModel } from '../Common/Models/OrderModel';
 import { CommandModel } from '../Common/Models/CommandModel';
-import { Local } from 'protractor/built/driverProviders';
 import { Router } from '@angular/router';
 
 @Component({
@@ -107,6 +106,7 @@ export class ProductsOrderComponent implements OnInit {
   }
 
   //TODO : method to be implemented in View model base class (called only from one place)
+   //#region "commonMethods"
   disconnect() {
     localStorage.clear();
     this.router.navigate(['/']);
@@ -120,4 +120,5 @@ export class ProductsOrderComponent implements OnInit {
   ErrorDisplay(Message) {
     Swal.fire('Oops...', Message, 'error')
   }
+    //#endregion "commonMethods"
 }
