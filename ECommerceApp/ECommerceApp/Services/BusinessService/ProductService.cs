@@ -80,7 +80,6 @@ namespace ECommerceApp.Services.BusinessService
                 CommandDataAccessProvider.AddRange(commands);
                 return true;
             }
-            return false;
         }
     }
 }
